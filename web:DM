@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developing Myself - 3D Experience</title>
+    <style>
+        /* CSS Styles */
+        :root {
+            /* Vibrant Palette */
+            --bg-color: #0c001a; /* Very dark purple for contrast */
+            --primary: #ff007f;   /* Hot Pink */
+            --secondary: #6200ea; /* Deep Purple */
+            --accent: #ffae00;    /* Amber/Gold */
+            --text-light: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.07);
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif; /* Poppins added for a modern feel */
+            margin: 0;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 10% 20%, rgba(98, 0, 234, 0.1) 0%, rgba(12, 0, 26, 0.1) 90.1%);
+            overflow-x: hidden;
+        }
+
+        /* Basic Setup for elements that need depth */
+        * {
+            box-sizing: border-box;
+            transform-style: preserve-3d; /* Key for 3D interactions */
+        }
+
+        /* 3D Header */
+        header {
+            background: rgba(12, 0, 26, 0.85);
+            backdrop-filter: blur(10px); /* Glass effect */
+            color: white;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            transform: translateY(-2px); /* Subtle float */
+        }
+
+        /* 3D Hero Section */
+        .hero {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            perspective: 1000px; /* Essential for 3D perspective */
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Simple 3D depth effect via text shadow */
+            text-shadow: 0 1px 0 #ccc, 
+                         0 2px 0 #c9c9c9, 
+                         0 3px 0 #bbb, 
+                         0 4px 0 #b9b9b9, 
+                         0 5px 0 #aaa, 
+                         0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        /* The main container acts as the scene */
+        .container {
+            max-width: 1000px;
+            margin: -50px auto 40px auto; /* Pulls content up over hero */
+            padding: 20px;
+            perspective: 1000px; /* Applies perspective to children */
+        }
+
+        /* The 3D Glass Card */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 50px;
+            
+            /* The deep 3D shadow */
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+            
+            /* Initial 3D tilt */
+            transform: rotateX(5deg) rotateY(-5deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .card:hover {
+            /* Standard hover to flatten it, emphasizing interaction */
+            transform: rotateX(0deg) rotateY(0deg) scale(1.02);
+            box-shadow: 0 35px 60px -10px rgba(255,0,127,0.3); /* Colorful shadow on hover */
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        /* 3D Isometric Goals Grid */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+            perspective: 2000px; /* Stronger scene perspective for the items */
+        }
+
+        /* The Isometric Goal Blocks */
+        .goal-item {
+            background: var(--glass-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-light);
+            
+            /* Main shadow to lift the block */
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.4);
+            
+            /* Core 3D Transformation (Skew and Rotate creates isometric feel) */
+            transform: rotateX(10deg) rotateY(-15deg) rotateZ(5deg);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy hover */
+            
+            /* Adding a gradient "top edge" for depth */
+            position: relative;
+        }
+
+        .goal-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 12px 12px 0 0;
+        }
+
+        .goal-item:hover {
+            transform: translateZ(20px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); /* Lifts straight up */
+            box-shadow: 0 20px 40px rgba(98, 0, 234, 0.5); /* Glow shadow */
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .goal-item strong {
+            display: block;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            background: #06000d;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 50px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Mobile Adjustments for 3D */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .card { transform: none; } /* Flatten major cards on mobile for readability */
+            .card:hover { transform: scale(1.01); }
+            .goal-item { transform: rotateX(5deg); } /* Reduce tilt on mobile */
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><strong>Growth</strong>Journey</div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#goals">Goals</a>
+            <a href="#vision">Vision</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Developing Myself</h1>
+        <p>A digital archive of transformation and progress.</p>
+    </section>
+
+    <div class="container">
+        <section id="about" class="card">
+            <h2>The Mission</h2>
+            <p>Welcome to this vibrant, experimental space dedicated to personal growth. This is more than a journal; it's a 3D interface designed to track my transformation, synthesize my learnings, and visually represent the architecture of my self-improvement. Every interaction here reminds me to build upwards.</p>
+        </section>
+
+        <section id="goals" class="goals-grid">
+            <div class="goal-item">
+                <strong>01 // Cognitive Expansion</strong>
+                <p>Focusing on advanced problem solving, deep work, and learning complex systems like web application architecture.</p>
+            </div>
+            <div class="goal-item">
+                <strong>02 // Core Fortitude</strong>
+                <p>Prioritizing physical strength through progressive overload training and metabolic conditioning four times a week.</p>
+            </div>
+            <div class="goal-item">
+                <strong>03 // Mindful Stillness</strong>
+                <p>Allocating 20 minutes daily for meditation to improve focus, emotional regulation, and presence.</p>
+            </div>
+            <div class="goal-item">
+                <strong>04 // Financial Geometry</strong>
+                <p>Optimizing investment strategies and diversifying income streams through scalable digital projects.</p>
+            </div>
+        </section>
+
+        <section id="vision" class="card" style="margin-top: 50px;">
+            <h2>Vision 2026</h2>
+            <p>I aim to construct a life defined by autonomy, creative mastery, and resilient health. This website is the initial blueprint for that construction. By modifying my environment, expanding my skillset, and refining my habits, I am actively engineering my future self. The blocks I lay today define the heights I reach tomorrow.</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 <span style="color: var(--accent);">Developing Myself</span> // Built for Growth.</p>
+    </footer>
+
+</body>
+</html>
