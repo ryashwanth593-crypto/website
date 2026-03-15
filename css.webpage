@@ -1,0 +1,129 @@
+DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #010818;
+        }
+
+        .container {
+            background: rgb(102, 175, 102);
+            width: 80%;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            margin-left: 25px;
+            color: rgb(10, 7, 6);
+            font-weight: 500;
+        }
+
+        .menu a:first-child {
+            color: rgb(9, 9, 19);
+        }
+
+        /* MAIN SECTION */
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+
+        .text {
+            width: 50%;
+        }
+
+        .text h1 {
+            font-size: 40px;
+            margin: 10px 0;
+        }
+
+        .text span {
+            color: rgb(3, 8, 14);
+        }
+
+        .text h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: rgb(243, 179, 114);
+            color: rgb(16, 5, 5);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: rgb(154, 240, 55);
+        }
+
+        /* IMAGE */
+        .image {
+            width: 40%;
+            text-align: center;
+        }
+
+        .image img {
+            width: 250px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 12px solid rgb(16, 16, 199);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+        <div class="logo">'Yashavanth.R'</div>
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Skills</a>
+            <a href="#">Works</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="text">
+            <h1>Hi,</h1>
+            <h1>I am <span>'Yashavanth.R'</span></h1>
+            <h2> "designer" </h2>
+            <button class="btn">Contact</button>
+        </div>
+
+        <div class="image">
+            <img src="sume.jpeg" alt="Profile">
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
